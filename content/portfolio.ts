@@ -506,6 +506,67 @@ export const portfolio = {
       ],
     },
     {
+      slug: 'egosocial-aria',
+      title: 'EgoSocial (Meta Project Aria research)',
+      tagline:
+        'A UMD research proposal for an egocentric dataset that pairs Aria Gen 2 sensor streams with validated psychological ground truth, plus the world model and behavioral model trained on it.',
+      year: '2026',
+      featured: true,
+      status: 'Research',
+      problem:
+        'Egocentric wearables capture geometry, motion, and activity, but nothing about the wearer\'s internal state. Existing datasets treat the wearer as an isolated agent, so a model can describe what someone is doing and still have no idea whether they are comfortable, engaged, or trying to leave the conversation. There is no large-scale dataset that links first-person sensor data to psychologically validated labels during real social interaction.',
+      solution:
+        'EgoSocial is a proposed dataset collected on Meta Aria Gen 2 glasses across three interaction conditions: human-human, human-AI, and human-group. Synchronized RGB, binocular eye tracking, PPG, IMU, and 7-channel spatial audio are aligned with pre-study trait assessments (OCEAN, ERQ, SIAS/SPS), in-the-moment diary annotations, and post-block surveys. On top of that dataset, a JEPA-style self-supervised world model learns latent representations of egocentric experience, and EgoBehave, a personality-conditioned temporal model, predicts emotional state, intent, comfort, and social context from those representations.',
+      impact: [
+        'Proposal submitted to the Meta Project Aria research program, currently under review',
+        'Designed for roughly 80 to 100 participants and about 160 to 200 hours of synchronized multimodal recordings',
+        'Held-out behavioral probe scenarios are excluded from training and used only to evaluate per-participant prediction',
+        'Planned outputs are an open dataset, open-source models, and a benchmark with evaluation protocols',
+      ],
+      tech: [
+        'Meta Aria Gen 2',
+        'Aria Client SDK',
+        'PyTorch',
+        'JEPA (self-supervised)',
+        'Multimodal sensor fusion',
+        'Eye tracking / PPG / IMU',
+        'Speech diarization',
+        'Open-weight LLMs',
+      ],
+      architecture: {
+        title: 'Sensors and surveys in, behavioral prediction out',
+        nodes: [
+          { label: 'Capture', detail: 'Aria Gen 2 profile10: RGB, eye tracking, PPG, IMU, 7-channel spatial audio' },
+          { label: 'Ground truth', detail: 'Pre-study trait assessments, marker-button diary annotations, post-block surveys' },
+          { label: 'Conditions', detail: 'Human-human dyads, warm vs cold AI agents, and 3-6 person group sessions' },
+          { label: 'Alignment', detail: 'Client SDK syncs recordings to survey events and participant marker presses' },
+          { label: 'Preprocessing', detail: 'Calibration, temporal alignment, speech diarization, gaze and physiological features' },
+          { label: 'World model', detail: 'JEPA-style masked spatiotemporal prediction over egocentric streams' },
+          { label: 'EgoBehave', detail: 'Personality-conditioned temporal model over JEPA embeddings' },
+          { label: 'Evaluation', detail: 'Held-out behavioral probes scored per participant, plus benchmark tasks' },
+        ],
+      },
+      links: {},
+      caseStudy: [
+        {
+          heading: 'What I contributed',
+          body: 'I am a co-author on the proposal, working on the research framing, the modeling plan, and the experiment design. The status is honest: the application to the Meta Project Aria program is submitted and under review, so nothing has been collected yet. What exists today is the design, which is the part I care most about getting right, because a dataset with a bad protocol is expensive to discover after the fact.',
+        },
+        {
+          heading: 'Why the labels are the hard part',
+          body: 'Sensor streams are easy to collect and nearly useless without ground truth about what the wearer was actually experiencing. Post-session surveys alone assume people remember what they felt and when, and self-reports about negative emotion invite social desirability bias. The design answers that with three layers: trait assessments before the session, a marker button for in-the-moment annotation, and short surveys immediately after each block rather than at the end. Each survey construct is chosen to map onto a specific sensor, such as arousal to PPG, dominance to gaze and speaking time, and cognitive load to pupil dilation.',
+        },
+        {
+          heading: 'Why Aria specifically',
+          body: 'A VR headset blocks eye contact and changes how people behave, which destroys the thing being measured. Conventional wearable cameras drop the physiological channel entirely. Aria Gen 2 is the one platform that combines eye tracking, PPG, IMU, spatial audio, and RGB with research-grade timestamp synchronization in a form factor people can wear through a real conversation.',
+        },
+        {
+          heading: 'Separating representation learning from prediction',
+          body: 'The JEPA model is trained self-supervised on sensor streams alone, with no labels, to learn what egocentric experience looks like. EgoBehave then runs on those embeddings, conditioned on a per-participant trait vector, to predict internal state. Keeping the two stages separate means the scarce and expensive resource, which is validated psychological labels, is spent only where it is actually needed.',
+        },
+      ],
+    },
+    {
       slug: 'pannote',
       title: 'PanNote + PipelineEvolve',
       tagline:
