@@ -775,38 +775,57 @@ export const portfolio = {
     {
       slug: 'ai-image-detector',
       title: 'AI-Generated Image Detector',
-      tagline: 'A CNN with the convolution layer written from scratch in NumPy.',
+      tagline: 'A CNN that found its own failure mode — and proved it was the wrong one.',
       year: '2026',
-      status: 'In development',
+      featured: true,
+      status: 'Research',
       problem:
-        'Detectors that score well on one generator collapse on the next. The question is not "can you classify?" but "does the signal generalize across generators?"',
+        'Detection papers report that models collapse under distribution shift: train on one generator, resize the images, and accuracy craters. The standard reading is that detectors depend on a fragile high-frequency fingerprint that any resampling destroys. That reading is usually asserted from an accuracy column alone.',
       solution:
-        'A CNN whose convolution layer is implemented from scratch in NumPy and verified with gradient checking, used as a controlled testbed for cross-generator generalization.',
+        'A 95k-parameter CNN trained on CIFAKE to 96.8% test accuracy, then used as a controlled testbed. Resampling drops recall from 0.969 to 0.684 — but AUC only moves 0.995 to 0.987, and false positives on real images collapse from 3.3% to 0.34%. Both classes shifted together, so the model was biased, not blind. Retuning one threshold on held-out shifted data recovers 0.943 with no retraining.',
       impact: [
-        'Convolution forward/backward verified by gradient checking',
-        'Cross-generator generalization framed as the core empirical question',
-        'No framework autograd, so every gradient is accounted for',
+        '96.8% test accuracy; 12s/epoch on 90k images via an in-memory tensor pipeline',
+        'Apparent robustness collapse (0.684) diagnosed as calibration: 0.943 after one threshold change',
+        'Nine-corruption sweep splits failures into shift-dominated vs destruction-dominated, separated by AUC',
+        'Cross-generator test rebuilt with resampling controls after they inverted the initial conclusion',
+        'Convolution forward/backward written in NumPy and verified against numerical gradients and autograd',
       ],
-      tech: ['Python', 'NumPy'],
+      tech: ['PyTorch', 'NumPy', 'Apple MPS', 'OpenAI Images API'],
       architecture: {
-        title: 'From-scratch CNN with gradient verification',
+        title: 'Detector, and the controls that make its numbers mean something',
         nodes: [
-          { label: 'Data', detail: 'Real vs generated images, split by generator' },
-          { label: 'Conv layer (NumPy)', detail: 'Hand-written forward + backward pass' },
-          { label: 'Gradient check', detail: 'Numerical vs analytical gradient agreement' },
-          { label: 'Train loop', detail: 'Manual backprop, no autograd' },
-          { label: 'Held-out generator eval', detail: 'Generalization measured across generators' },
+          { label: 'CIFAKE cache', detail: '120k JPEGs decoded once into a 294MB uint8 tensor, resident in RAM' },
+          { label: 'GPU-side augment', detail: 'Normalize, flip, and corruption applied per batch on device' },
+          { label: 'SmallCNN', detail: '3x [Conv-BN-ReLU-Pool], 3 to 32 to 64 to 128 channels, one logit out' },
+          { label: 'Resampling controls', detail: 'Same-generator content through the identical 32-1024-32 path' },
+          { label: 'Calibration sweep', detail: 'Nine corruptions, paired logit shifts, AUC vs accuracy' },
+          { label: 'Held-out threshold', detail: 'Tuned on one half of shifted data, scored on the other' },
         ],
       },
-      links: {}, // No public repo yet
+      links: {
+        github: 'https://github.com/jav359003/ai-image-detector',
+        writeup: 'https://claude.ai/code/artifact/be07571c-de11-4d23-9b54-6cf52bf6013c',
+      },
       caseStudy: [
         {
-          heading: 'Why write convolution by hand',
-          body: 'Calling Conv2d teaches you the API. Writing the backward pass yourself and validating it against numerical gradients teaches you where the signal actually comes from, which matters when the question you care about is which features transfer to a new generator.',
+          heading: 'The control that inverted the answer',
+          body: 'The original question was cross-generator: does a Stable Diffusion detector catch images from a model it has never seen? Testing on 330 OpenAI gpt-image-1 images gave 87.9%, which reads as moderate degradation from the 96.8% baseline. But those images arrive at 1024x1024 and have to be downscaled to reach a 32x32 model, so the generator was not the only thing that changed. The control that carries the same downscaling with same-generator content scored 68.4% — the unseen generator scored higher than the familiar one after equivalent handling. There is no cross-generator failure in this data. Without the control, the writeup would have claimed one.',
         },
         {
-          heading: 'The generalization trap',
-          body: 'Training and testing on the same generator produces flattering numbers driven by generator-specific artifacts. Evaluation is split by generator, so held-out performance measures the thing that would matter in deployment.',
+          heading: 'Blind or biased',
+          body: 'Resampling cut recall by 28 points, which looks like destroyed evidence. AUC said otherwise: 0.9953 to 0.9874, essentially intact ranking. The confirming measurement was the false positive rate on resampled real photographs, which fell from 3.31% to 0.34%. If the model had gone blind it would have gotten worse at both classes; instead every score slid about four logits toward "real" while the distribution kept its shape. That is a threshold sitting in the wrong place, and moving it to -4.28 restored accuracy to 0.943.',
+        },
+        {
+          heading: 'Two regimes, one diagnostic',
+          body: 'Running nine corruptions — resize round-trips, JPEG at two qualities, blur, crop, noise, a simulated screenshot — split them cleanly. Mild corruptions hold AUC at 0.98 or better while fixed-threshold accuracy sinks to 0.80, and retuning recovers 0.92 to 0.94. Severe ones collapse AUC to 0.83, and there retuning stalls near 0.74 because the information is genuinely gone. The two look identical in an accuracy column and need opposite responses, so AUC at the shifted distribution is the measurement that tells them apart. JPEG at quality 50 was the surprise: it shifts real photographs toward "fake", so compression causes false accusations while resizing causes misses.',
+        },
+        {
+          heading: 'Why write convolution by hand first',
+          body: 'Calling nn.Conv2d teaches the API. Deriving dW, db, and the scatter-add for dx in NumPy, then checking all three against numerical gradients and autograd, teaches where the signal comes from. It also explains PyTorch: db accumulates with += across output positions for the same reason .grad accumulates across backward calls, which is why zero_grad exists.',
+        },
+        {
+          heading: 'Making it run at all',
+          body: 'The project initially lived in an iCloud-synced folder, where 120k small JPEGs meant every file read went through fileproviderd. A single epoch never finished and import torch took seven minutes. Decoded to uint8 the whole dataset is 307MB, so it now gets decoded once into a tensor that stays in RAM, with normalization and augmentation done on the GPU. Epochs went from never completing to 12 seconds.',
         },
       ],
     },
