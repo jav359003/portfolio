@@ -184,7 +184,7 @@ function ProjectCard({ project, featured }: { project: Project; featured?: boole
                 rel="noopener noreferrer"
                 className="btn-ghost !py-2 !text-[13px]"
               >
-                Devpost <Icon name="external" size={13} />
+                Write-up <Icon name="external" size={13} />
               </a>
             ) : null}
           </div>

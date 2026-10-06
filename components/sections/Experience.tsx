@@ -139,7 +139,7 @@ export function ExperienceSection() {
       eyebrow="Experience"
       title={
         <>
-          Five teams, and the same approach <span className="grad-text">every time: ship it, then measure it.</span>
+          Six teams, and the same approach <span className="grad-text">every time: ship it, then measure it.</span>
         </>
       }
       lede="Founding engineering, machine learning internships, and client work. Each entry expands if you want the specifics."

@@ -82,10 +82,6 @@ function StructuredData() {
           '@type': 'CollegeOrUniversity',
           name: e.school,
         })),
-        worksFor: {
-          '@type': 'Organization',
-          name: portfolio.experience[0].company,
-        },
         address: { '@type': 'PostalAddress', addressLocality: 'College Park', addressRegion: 'MD', addressCountry: 'US' },
       },
       {

@@ -54,7 +54,7 @@ export type Project = {
   tagline: string;
   year: string;
   featured?: boolean;
-  status?: 'Shipped' | 'In development' | 'Research';
+  status?: 'Shipped' | 'In development' | 'Research' | 'Open source';
   /** Path under /public, e.g. '/projects/legallease.png'. Falls back to a generated cover. */
   image?: string;
   problem: string;
@@ -116,23 +116,23 @@ export const portfolio = {
   name: 'Javin Ahuja',
   initials: 'JA',
   /** Level signal. Recruiters scan for this. */
-  title: 'AI / Founding Engineer',
-  subtitle: 'Applied AI · Agentic Systems · Full-Stack',
+  title: 'Software Engineer',
+  subtitle: 'Backend · Full-Stack · Applied AI',
   location: 'College Park, MD · Open to relocation',
-  availability: 'Open to SWE and AI Engineer roles, 2027 new grad and internships',
+  availability: 'Open to 2027 new-grad and early-career software engineering roles',
 
   /** Hero headline. Keep it under ~7 words. */
-  headline: 'I build AI systems that hold up in production.',
+  headline: 'I build systems that hold up in production.',
   /** One-sentence value proposition. This is the 10-second pitch. */
   valueProp:
-    'I am a founding engineer who builds retrieval and agentic AI systems end to end, from hybrid RAG and evaluation harnesses to the apps that sit on top of them. That work has shipped to more than 10,000 downloads, cut response latency by about 70%, and improved answer accuracy by 34.5%.',
+    'I build software end to end, from backend APIs and cross-platform product features to retrieval systems and evaluation harnesses. My work has helped ship an app to 14,000 downloads and 9 million store impressions, cut cached response latency about 70%, and improve RAG accuracy and recall about 35%.',
 
   /** Rotating one-liners under the headline. */
   rotating: [
+    'backend and full-stack systems shipped to real users',
     'production RAG at 99% retrieval recall',
-    'agents that are evaluated, not guessed at',
-    'response latency from 9s down to under 3s',
-    'TypeScript · Python · PyTorch · Postgres',
+    'open-source robotics evaluation infrastructure',
+    'TypeScript · Python · Java · Postgres',
   ],
 
   /** Swap the file in /public to change it. Empty string falls back to a monogram. */
@@ -157,8 +157,8 @@ export const portfolio = {
     lede: 'I get curious about something, dig into it until I actually understand it, and then I build it. That loop is most of how I spend my time, and it keeps leading me to work I did not expect to be doing.',
     paragraphs: [
       "I am a computer science student at the University of Maryland with a machine learning concentration. Most of what I know well, I learned by getting interested in a problem and then refusing to leave it alone. I take it apart, rebuild it badly, rebuild it better, read the paper I had been avoiding, and eventually end up with something that runs.",
-      "That habit is how I ended up as the founding engineer at Peptide AI. I wanted to know why our chat felt slow and shallow, so I went into the retrieval layer and stayed there. I built hybrid dense and BM25 search, added cross-encoder reranking, and designed a semantic cache that brought answers from nine seconds down to under three. Nobody assigned me that work. I kept following the problem until it was fixed.",
-      "The same thing happened earlier in my work. At Garden For Wildlife I kept retuning a RAG pipeline until it was 34.5% more accurate across 5,000 real queries. At Booz Allen Hamilton I built a video processing service. At Maryland I helped ship a Monte Carlo financial tool that 5,000 students actually use. On my own time I wrote a CNN with the convolution layer built by hand in NumPy, and a DQN agent that learns to play Pac-Man, because I wanted to see the gradients for myself instead of trusting the framework to be right.",
+      "That habit is how I became one of two engineers at Peptide AI. I worked across mobile product design, Swift and Kotlin, TypeScript edge services, PostgreSQL, customer-email automation, and the retrieval layer. When chat responses took around nine seconds, I built hybrid dense and BM25 search, added reranking, and designed a privacy-scoped semantic cache that brought cache hits under three seconds.",
+      "The same thing happened earlier in my work. At Garden For Wildlife I improved RAG accuracy and recall about 35% across 5,000 evaluated queries. At Booz Allen Hamilton I built a video-processing service. At Maryland I helped ship a Monte Carlo financial tool for a 5,000+ student audience. More recently, I contributed a public evaluation API to Inspect Robots and designed a metrics layer proposal for scene and epoch evaluations.",
       'The common thread here is not really AI. It is that I like getting my hands dirty on hard problems, and I care whether the result actually works. That is why almost everything I build ends up with an evaluation harness attached to it.',
     ],
     principles: [
@@ -174,16 +174,16 @@ export const portfolio = {
     { label: 'Years building', value: 3, suffix: '+', hint: 'Since 2023, across internships, research, and a founding role' },
     { label: 'Projects shipped', value: 12, suffix: '+', hint: 'Production apps, RAG systems, and ML research projects' },
     { label: 'Technologies', value: 40, suffix: '+', hint: 'Across AI, frontend, backend, data, and cloud' },
-    { label: 'App downloads', value: 10, suffix: 'K+', hint: 'Cross-platform releases shipped weekly at Peptide AI, +66% MoM' },
-    { label: 'App Store impressions', value: 85, suffix: 'K+', hint: 'Daily impressions, +850% growth' },
+    { label: 'App downloads', value: 14, suffix: 'K', hint: 'Combined iOS and Android downloads reached in two months at Peptide AI' },
+    { label: 'Store impressions', value: 9, suffix: 'M', hint: 'Combined App Store and Google Play impressions in two months' },
     { label: 'Latency reduced', value: 70, suffix: '%', hint: 'Semantic cache: 9s → under 3s on cache hits' },
   ] as Stat[],
 
   /** Recruiter-facing "why interview" bullets, shown high on the page. */
   whyHire: [
-    { metric: '34.5%', label: 'RAG accuracy lift', detail: 'Measured across 5,000+ real-world queries at Garden For Wildlife.' },
-    { metric: '10,000+', label: 'Downloads shipped', detail: '+66% MoM on cross-platform releases I ship weekly.' },
-    { metric: '35% → 55%', label: 'QA accuracy, fine-tuned', detail: 'LoRA fine-tune of Qwen2.5-3B on lease clauses I extracted myself.' },
+    { metric: '~35%', label: 'RAG accuracy and recall lift', detail: 'Measured with automated evaluations across 5,000 production queries.' },
+    { metric: '14,000', label: 'Downloads shipped', detail: 'Reached across iOS and Android in two months at Peptide AI.' },
+    { metric: '9 million', label: 'Store impressions', detail: 'Combined App Store and Google Play visibility in the same two-month period.' },
     { metric: '9s to 3s', label: 'Latency cut', detail: 'Privacy-safe semantic cache at Peptide AI, about 70% faster on cache hits.' },
   ],
 
@@ -200,7 +200,8 @@ export const portfolio = {
         { name: 'Java', level: 82 },
         { name: 'C', level: 74 },
         { name: 'Bash', level: 72 },
-        { name: 'Swift', level: 60, note: 'in progress' },
+        { name: 'Swift', level: 72 },
+        { name: 'Kotlin', level: 70 },
       ],
     },
     {
@@ -227,7 +228,7 @@ export const portfolio = {
         { name: 'React Native', level: 88 },
         { name: 'Next.js', level: 85 },
         { name: 'Capacitor', level: 80 },
-        { name: 'SwiftUI', level: 58, note: 'in progress' },
+        { name: 'SwiftUI', level: 72 },
       ],
     },
     {
@@ -303,23 +304,22 @@ export const portfolio = {
     {
       company: 'Peptide AI',
       initials: 'PA',
-      role: 'AI / Founding Engineer',
+      role: 'Founding Engineer',
       start: 'May 2026',
-      end: 'Present',
+      end: 'Aug 2026',
       location: 'Remote',
-      type: 'Founding',
-      current: true,
+      type: 'Full-time',
       summary:
-        "Own the retrieval and agent stack behind the app's AI Chat, plus the cross-platform clients on top of it.",
-      impact: '10,000+ downloads (+66% MoM), 85K+ daily App Store impressions (+850%), 70% latency cut on cache hits.',
+        'Owned product work across mobile clients, TypeScript services, PostgreSQL, AI retrieval, testing, releases, and customer lifecycle automation as one of two engineers.',
+      impact: 'Helped reach 14,000 downloads and 9 million combined store impressions across iOS and Android in two months.',
       achievements: [
-        "Architected the production RAG system (TypeScript, Supabase Edge Functions/Deno) powering AI Chat: hybrid dense + BM25 retrieval, Voyage cross-encoder reranking, and streamed Claude (Anthropic API) responses grounded in each user's own data.",
-        'Built an agentic framework (TypeScript) that reasons over user data, wearable signals, and retrieved evidence to generate personalized, safety-aware recommendations.',
-        'Designing an agentic Coach system that separates deterministic stats computation from LLM narration, grounds claims in evidence-tiered RAG citations, and evaluates agent trajectories (claim-level grounding, tool-trace correctness, negative-control abstention) rather than final output alone.',
-        'Designed a privacy-safe semantic cache (TypeScript, pgvector) cutting response latency ~70% on cache hits (9s → under 3s) at $0 marginal cost, enforced by dedicated safety guards and a Deno regression suite.',
-        'Shipped cross-platform apps (React, React Native, Capacitor) weekly, driving 10,000+ downloads (+66% MoM) and 85K+ daily App Store impressions (+850%); leading a native Swift/SwiftUI rewrite.',
+        'Redesigned onboarding, tracking, dosing, subscriptions, and notification flows across Swift/SwiftUI and Kotlin mobile work.',
+        'Automated weekly customer feedback and win-back emails with retry, deduplication, and unsubscribe safeguards.',
+        'Cut cached RAG response latency about 70%, from 9 seconds to under 3 seconds on cache hits, with hybrid retrieval, reranking, streaming, and a privacy-scoped TypeScript/pgvector semantic cache.',
+        'Built a human-in-the-loop Coach across four runtimes and seven data triggers, converting user, wearable, and lab data into 12 deterministic rules and measurable 14-day experiments.',
+        'Reduced evaluation false positives from 23.3% to 3.3% and blocked 11/11 unsafe dosing prompts after tests exposed 6/11 guardrail bypasses.',
       ],
-      tech: ['TypeScript', 'Supabase Edge Functions', 'Deno', 'pgvector', 'Anthropic API', 'React', 'React Native', 'Capacitor', 'Swift/SwiftUI'],
+      tech: ['Swift', 'SwiftUI', 'Kotlin', 'TypeScript', 'Deno', 'PostgreSQL', 'pgvector', 'Supabase Edge Functions', 'Mixpanel', 'PostHog'],
     },
     {
       company: 'Garden For Wildlife',
@@ -329,13 +329,13 @@ export const portfolio = {
       end: 'Aug 2025',
       location: 'Remote',
       type: 'Internship',
-      summary: 'Built and shipped the RAG pipeline behind customer-facing answers, then proved it worked at scale.',
-      impact: '34.5% accuracy improvement and 15% latency reduction across 5,000+ evaluated queries.',
+      summary: 'Built and evaluated the RAG pipeline behind customer-facing answers, then deployed the serving endpoints.',
+      impact: 'Improved answer accuracy and recall about 35% and reduced latency 15% across 5,000 evaluated production queries.',
       achievements: [
-        'Built and shipped a production RAG pipeline (LangChain, FAISS, OpenAI API) evaluated across 5,000+ real-world queries, achieving a 34.5% accuracy improvement and 15% latency reduction through prompt engineering and retrieval optimization.',
-        'Automated data ingestion and transformation workflows in Python, improving pipeline reliability and delivering measurable insights to cross-functional stakeholders.',
+        'Built automated evaluations over all 5,000 production queries and used the results to improve retrieval, answer accuracy, and recall about 35%.',
+        'Reduced response latency 15% through caching and deployed FastAPI/Pydantic endpoints for the RAG service.',
       ],
-      tech: ['Python', 'LangChain', 'FAISS', 'OpenAI API', 'ETL'],
+      tech: ['Python', 'LangChain', 'FAISS', 'OpenAI API', 'FastAPI', 'Pydantic', 'Caching', 'Automated evaluation'],
     },
     {
       company: 'Booz Allen Hamilton',
@@ -363,9 +363,9 @@ export const portfolio = {
       location: 'College Park, MD',
       type: 'University',
       summary: 'End-to-end ownership of a financial planning app for the student body.',
-      impact: 'Shipped to 5,000+ students, running 10,000+ Monte Carlo simulations.',
+      impact: 'Shipped for a 5,000+ student audience, with 10,000 Monte Carlo trials run offline for personalized projections.',
       achievements: [
-        'Shipped a production application to 5,000+ students end-to-end: Flask REST APIs, a React Native frontend, and Python pipelines running 10,000+ Monte Carlo simulations.',
+        'Shipped a live financial-planning application end to end with Flask REST APIs, a React Native frontend, and Python services backed by 10,000 offline Monte Carlo trials.',
       ],
       tech: ['Python', 'Flask', 'React Native', 'Monte Carlo', 'REST APIs'],
     },
@@ -377,13 +377,30 @@ export const portfolio = {
       end: 'Jul 2025',
       location: 'Remote',
       type: 'Internship',
-      summary: 'Secure document workflows across the stack, plus the CI that kept releases boring.',
-      impact: 'Improved release stability 30% via CI/CD hardening and automated testing.',
+      summary: 'Built the MVP’s core file-upload workflow across the Java/Spring Boot backend and React/TypeScript frontend.',
+      impact: 'Made 160+ code contributions and reviewed 30+ pull requests, helping move MVP delivery forward by several weeks.',
       achievements: [
-        'Built full-stack features (Spring Boot APIs, PostgreSQL, TypeScript/React) for secure document workflows end-to-end.',
-        'Improved release stability 30% through CI/CD hardening and automated testing.',
+        'Designed and maintained REST APIs with Java, Spring Boot, JPA, and MySQL while building responsive React/TypeScript features.',
+        'Built and stress-tested the core file-upload flow in a compressed startup timeline, accelerating the MVP by several weeks.',
+        'Reviewed 30+ pull requests and made 160+ contributions spanning features, bug fixes, tests, and system improvements.',
       ],
-      tech: ['Spring Boot', 'PostgreSQL', 'TypeScript', 'React', 'CI/CD'],
+      tech: ['Java', 'Spring Boot', 'JPA', 'MySQL', 'React', 'TypeScript', 'Jira', 'Confluence'],
+    },
+    {
+      company: 'GBCS Group',
+      initials: 'GB',
+      role: 'Backend Engineer Intern',
+      start: 'Apr 2025',
+      end: 'Aug 2025',
+      location: 'Remote',
+      type: 'Internship',
+      summary: 'Profiled and improved authentication services, then deployed REST and GraphQL APIs through Azure CI/CD.',
+      impact: 'Reduced authentication API latency about 85%, from 1,300 ms to 200 ms, for services supporting 200+ users.',
+      achievements: [
+        'Profiled Node.js/Express services and database queries to cut authentication latency from 1,300 ms to 200 ms.',
+        'Built and deployed REST and GraphQL services on Azure through CI/CD for 200+ users.',
+      ],
+      tech: ['Node.js', 'Express', 'REST', 'GraphQL', 'SQL', 'Azure', 'CI/CD'],
     },
   ] as Experience[],
 
@@ -391,32 +408,33 @@ export const portfolio = {
   projects: [
     {
       slug: 'peptide-ai-rag',
-      title: 'Peptide AI RAG and Agent Platform',
-      tagline: 'Hybrid retrieval, agent trajectories, and a privacy-safe semantic cache in production.',
-      year: '2026 to Present',
+      title: 'Peptide AI Product, Mobile, and RAG Platform',
+      tagline: 'Cross-platform product engineering, lifecycle automation, retrieval, safety evaluation, and a privacy-scoped semantic cache.',
+      year: 'May to Aug 2026',
       featured: true,
       status: 'Shipped',
       problem:
         'Users ask health questions that have to be answered from their own data, meaning their wearable signals, their logs, and their history, with no leakage between users, and it has to stream fast enough to feel like a conversation. At around 9 seconds to an answer, people stopped engaging with it.',
       solution:
-        "A TypeScript retrieval stack on Supabase Edge Functions: hybrid dense + BM25 retrieval, Voyage cross-encoder reranking, streamed Claude responses, and a pgvector semantic cache scoped per user with dedicated safety guards.",
+        'As one of two engineers, I worked across Swift/SwiftUI and Kotlin mobile flows, TypeScript/Deno services, PostgreSQL, weekly releases, customer-email automation, hybrid retrieval, and a pgvector semantic cache scoped per user with dedicated safety guards.',
       impact: [
         '~70% latency reduction on cache hits (9s → under 3s) at $0 marginal cost',
-        '10,000+ downloads, +66% month over month',
-        '85K+ daily App Store impressions (+850%)',
-        'Deno regression suite gates every retrieval change',
+        '14,000 downloads across iOS and Android in two months',
+        '9 million combined App Store and Google Play impressions in two months',
+        'Evaluation false positives reduced from 23.3% to 3.3%; 11/11 unsafe dosing prompts blocked after testing',
       ],
-      tech: ['TypeScript', 'Deno', 'Supabase Edge Functions', 'pgvector', 'Anthropic API', 'Voyage rerank', 'React Native'],
+      tech: ['Swift', 'SwiftUI', 'Kotlin', 'TypeScript', 'Deno', 'Supabase Edge Functions', 'PostgreSQL', 'pgvector', 'Mixpanel', 'PostHog'],
       architecture: {
         title: 'Retrieval + agent pipeline with privacy-scoped cache',
         nodes: [
-          { label: 'Client', detail: 'React / React Native / Capacitor, streamed tokens' },
+          { label: 'Mobile clients', detail: 'Swift/SwiftUI and Kotlin product flows for onboarding, tracking, dosing, subscriptions, and notifications' },
           { label: 'Edge Function', detail: 'Deno request handler, auth + RLS scoping' },
           { label: 'Semantic cache', detail: 'pgvector nearest-neighbor, per-user scope, safety guards' },
           { label: 'Hybrid retrieval', detail: 'Dense embeddings + BM25 over user-owned data' },
           { label: 'Rerank', detail: 'Voyage cross-encoder over candidate evidence' },
           { label: 'Agent layer', detail: 'Deterministic stats computation, then LLM narration' },
           { label: 'Claude', detail: 'Streamed generation grounded in evidence-tiered citations' },
+          { label: 'Lifecycle automation', detail: 'Customer feedback and win-back emails with retries, deduplication, and unsubscribe protection' },
         ],
       },
       // Closed source, so no repo. The product itself is public.
@@ -424,7 +442,7 @@ export const portfolio = {
       caseStudy: [
         {
           heading: 'Latency was the product problem',
-          body: 'At around 9 seconds to a first useful answer, users stopped asking follow up questions. The thing that fixed it was not the choice of model. It was noticing how many questions were semantically similar to ones already asked. A pgvector cache keyed on embedding proximity absorbs those, and a cache hit returns in under 3 seconds at no extra inference cost.',
+          body: 'At around 9 seconds to a first useful answer, the experience felt slow. The thing that fixed it was not the choice of model. It was noticing how many questions were semantically similar to ones already asked. A pgvector cache keyed on embedding proximity absorbs those, and a cache hit returns in under 3 seconds at no extra inference cost.',
         },
         {
           heading: 'Caching health questions safely',
@@ -437,6 +455,10 @@ export const portfolio = {
         {
           heading: 'Grading the trajectory',
           body: 'Scoring only the final output hides the failures that matter. The evaluation covers claim level grounding, whether the tool trace was correct, and whether the agent abstained on negative controls. That means an agent that arrives at the right answer through the wrong tools still fails the suite.',
+        },
+        {
+          heading: 'The work was broader than the AI layer',
+          body: 'I also redesigned onboarding, tracking, dosing, subscriptions, and notification flows across the mobile clients, and automated weekly customer feedback and win-back emails with retry, deduplication, and unsubscribe protection. The role was end-to-end product engineering: client UX, backend services, data, testing, releases, and the operational work that keeps a product moving.',
         },
       ],
     },
@@ -632,6 +654,143 @@ export const portfolio = {
         {
           heading: 'The next real experiment',
           body: 'The next step is not more searching. It is fixing the measurement. I plan to blend deterministic concept recall into the judge score, then run the sabotage tests again and check whether the gutted pipeline finally separates from the baseline. The current test set is spent, because anything tuned against those numbers is no longer held out, so getting a clean answer also means collecting fresh transcripts.',
+        },
+      ],
+    },
+    {
+      slug: 'inspect-robots',
+      title: 'Inspect Robots Open-Source Contribution',
+      tagline:
+        'A merged public API contribution to a robotics-evaluation framework, plus a backward-compatible metrics-layer proposal.',
+      year: 'Aug 2026 to Present',
+      status: 'Open source',
+      problem:
+        'Benchmark authors needed one supported way to interpret human operator verdicts. The implementation lived behind a private helper, so downstream code either depended on private internals or recreated success semantics and risked drifting from the scorer.',
+      solution:
+        'I promoted verdict normalization to a public API, centralized the affirmative vocabulary and normalization rules, and added snapshot and regression coverage. I separately designed a metrics protocol and registry proposal so tasks could report mean, standard error, and success rate without breaking existing mean-only behavior.',
+      impact: [
+        'Merged upstream as robocurve/inspect-robots PR #415',
+        'Public helper and operator scorer now share one verdict contract',
+        'Regression coverage includes case, whitespace, rejected values, null values, and scorer agreement',
+        'Metrics layer is explicitly a design proposal under maintainer discussion, not shipped code',
+      ],
+      tech: ['Python', 'pytest', 'Public API design', 'Robotics evaluation', 'Benchmark metrics', 'Open source'],
+      architecture: {
+        title: 'One public verdict contract, with a proposed metrics layer above it',
+        nodes: [
+          { label: 'Operator verdict', detail: 'Human-written pass/fail language, including case, whitespace, and null edge cases' },
+          { label: 'Public normalizer', detail: 'is_affirmative_verdict centralizes the supported success vocabulary' },
+          { label: 'Operator scorer', detail: 'Calls the same public helper instead of maintaining separate semantics' },
+          { label: 'Regression suite', detail: 'API snapshot plus accepted, rejected, normalization, null, and agreement tests' },
+          { label: 'Proposed metric protocol', detail: 'Backward-compatible interface and independent registry namespace' },
+          { label: 'Proposed built-ins', detail: 'Mean, standard error, and success rate across scenes and epochs' },
+        ],
+      },
+      links: { github: 'https://github.com/robocurve/inspect-robots/pull/415' },
+      caseStudy: [
+        {
+          heading: 'Turning a private convention into a public contract',
+          body: 'The operator scorer already knew which human verdicts counted as affirmative, but downstream benchmarks had no supported API for asking the same question. PR #415 promoted that logic into is_affirmative_verdict, made the scorer call it, and documented the helper for benchmark authors. The change is small in surface area and important in effect: there is now one contract instead of several nearly identical copies.',
+        },
+        {
+          heading: 'Tests define the compatibility boundary',
+          body: 'The regression suite covers accepted verdict vocabulary, case and surrounding whitespace, rejected values, null input, and direct agreement between the helper and the operator scorer. An API snapshot also makes accidental public-surface changes visible in review.',
+        },
+        {
+          heading: 'The metrics layer is a proposal, not a shipped claim',
+          body: 'I also designed a backward-compatible metrics layer with a metric protocol, its own registry namespace, and mean, standard error, and success-rate built-ins. Tasks would keep mean as the default, so existing benchmarks would not change. That design was sent to the maintainer for discussion; it is intentionally described here as proposed work rather than implemented functionality.',
+        },
+      ],
+    },
+    {
+      slug: 'esource-study-builder',
+      title: 'eSource Study Builder',
+      tagline:
+        'A browser agent that builds clinical-study specifications into unfamiliar eSource platforms without hardcoded selectors or screen order.',
+      year: 'Sep 2026',
+      status: 'Research',
+      problem:
+        'Clinical study builders differ in vocabulary, markup, navigation, and save behavior. A brittle automation tied to labels, element IDs, or one platform’s screen order fails as soon as the same study is entered somewhere else.',
+      solution:
+        'I built a Chrome extension that discovers controls by semantic role and meaning, maps field types with confidence and a runner-up, plans dependencies, escalates ambiguous decisions to a human, reads changes back, verifies persistence by leaving and reopening the builder, and reconciles reruns instead of duplicating work.',
+      impact: [
+        'Verified without code changes on two different mock eSource platforms',
+        'Built and read-back verified 4/4 visits, 28/28 forms, and 195/195 fields',
+        'Verified 42/42 coded-value sets, 59/59 ranges and units, and 13/13 visibility rules',
+        'Completed about 240 high-level steps in roughly two minutes with about two model calls per platform',
+      ],
+      tech: ['JavaScript', 'Chrome MV3', 'Browser automation', 'Accessibility semantics', 'Human-in-the-loop AI', 'Evaluation'],
+      architecture: {
+        title: 'Specification in, verified and traceable eSource build out',
+        nodes: [
+          { label: 'Study specification', detail: 'Visits, forms, fields, coded values, ranges, units, and visibility rules' },
+          { label: 'Semantic perception', detail: 'Discovers controls by role, nearby meaning, and current screen state rather than selectors' },
+          { label: 'Type mapper', detail: 'Maps platform vocabulary once, with confidence and a visible runner-up' },
+          { label: 'Dependency planner', detail: 'Orders visits, forms, fields, values, ranges, and second-pass visibility rules' },
+          { label: 'Human gate', detail: 'Groups uncertain decisions by consequence and shows the evidence behind each choice' },
+          { label: 'Round-trip verifier', detail: 'Leaves the editor, returns, and confirms the saved study survived' },
+          { label: 'Reconciler', detail: 'Reads current state before creating anything so interrupted reruns remain idempotent' },
+        ],
+      },
+      links: { github: 'https://github.com/jav359003/intake-esource-agent' },
+      caseStudy: [
+        {
+          heading: 'No platform-specific selectors',
+          body: 'The same extension ran on two mock platforms whose labels, layouts, markup, and navigation were intentionally different. Controls are found by semantic role and nearby meaning, while the model is used sparingly to map each platform’s field-type vocabulary. That mapping happens once and is cached instead of spending a model call on every field.',
+        },
+        {
+          heading: 'The build order is a correctness constraint',
+          body: 'Fields must exist before another field can reference them, values can be discarded when a type changes, and visibility rules arrive in sponsor order rather than dependency order. The planner topologically orders the work, applies visibility rules in a second pass, and escalates cycles or dangling references instead of guessing.',
+        },
+        {
+          heading: 'Verifying the editor is not verifying persistence',
+          body: 'An early run built a complete form in the working editor while the saved study still contained zero fields. The final verifier leaves the builder, reopens it, and checks the rendered study again. That round trip catches a false success that screenshots or in-dialog read-back cannot.',
+        },
+      ],
+    },
+    {
+      slug: 'schedule-of-activities-extractor',
+      title: 'Schedule of Activities Extractor',
+      tagline:
+        'A provenance-aware document pipeline for locating, extracting, stitching, and validating clinical-trial Schedule of Activities tables.',
+      year: 'Sep 2026',
+      status: 'Research',
+      problem:
+        'Clinical-trial protocols hide wide, multipage Schedule of Activities tables inside long PDFs. Flattening them to text loses hierarchy, footnote links, ambiguous cells, and page provenance—the exact details a downstream clinical workflow needs to trust.',
+      solution:
+        'I built a Python pipeline and upload UI that locates candidate pages, renders them for multimodal extraction, deterministically stitches multipage tables, and emits a graph schema that preserves headers, verbatim cell values, footnotes, provenance, and unresolved ambiguity.',
+      impact: [
+        'Located 12/12 reference pages across five protocols and 8/8 pages across three unseen holdout protocols',
+        'Recovered 31/31 and 37/37 assessments on two hand-verified protocols',
+        'Preserves hierarchical headers, verbatim cells, footnote text and linkage, ambiguity, and provenance',
+        'Compared text-layer, Gemini, and OpenAI extraction paths and maintains 28 no-API regression tests',
+      ],
+      tech: ['Python', 'FastAPI', 'PyMuPDF', 'pdfplumber', 'Multimodal LLMs', 'Graph schemas', 'Regression testing'],
+      architecture: {
+        title: 'Long clinical protocol to provenance-bearing activity graph',
+        nodes: [
+          { label: 'Protocol upload', detail: 'FastAPI/Uvicorn service accepts full clinical-trial PDFs' },
+          { label: 'Page locator', detail: 'Scores and selects candidate Schedule of Activities pages' },
+          { label: 'Page renderer', detail: 'Produces page images while retaining page-level source identity' },
+          { label: 'Multimodal extraction', detail: 'Reads rows, columns, cells, hierarchy, and footnote markers from page images' },
+          { label: 'Deterministic stitcher', detail: 'Joins multipage table fragments without asking a model to rewrite source values' },
+          { label: 'Provenance graph', detail: 'Links every value, header, footnote, ambiguity, and unresolved structure back to evidence' },
+          { label: 'Evaluation', detail: 'Reference, holdout, hand-verified assessment counts, and 28 offline regression tests' },
+        ],
+      },
+      links: { github: 'https://github.com/jav359003/intake-soa-extraction' },
+      caseStudy: [
+        {
+          heading: 'Location and extraction are separate problems',
+          body: 'A model cannot extract a table it never sees. The first stage finds likely Schedule of Activities pages across the entire protocol, and the extraction stage runs only on those images. Keeping the stages separate made it possible to measure page recall independently and reach 12/12 on the reference set and 8/8 on unseen holdouts.',
+        },
+        {
+          heading: 'Deterministic stitching protects the source',
+          body: 'The table may repeat headers, continue rows across pages, or move footnotes to the final fragment. The stitcher joins extracted fragments with deterministic rules instead of prompting a model to summarize them, which preserves verbatim cell values and keeps every merge inspectable.',
+        },
+        {
+          heading: 'Ambiguity is data',
+          body: 'The graph schema records unresolved structures and ambiguous cells rather than silently forcing them into a convenient shape. It also retains hierarchical headers and footnote targets. That makes the output suitable for review-heavy clinical workflows where an explicit unknown is safer than a clean but invented answer.',
         },
       ],
     },
@@ -879,7 +1038,7 @@ export const portfolio = {
       location: 'College Park, MD',
       start: 'Aug 2023',
       end: 'May 2027',
-      gpa: '', // TODO: add if it helps you (3.5+)
+      gpa: '3.5/4.0',
       coursework: [
         'Machine Learning',
         'Data Structures & Algorithms',
@@ -936,8 +1095,16 @@ export const portfolio = {
       kind: 'Leadership',
       title: 'Founding Engineer',
       org: 'Peptide AI',
-      date: 'May 2026 to Present',
-      detail: 'First engineering hire; own retrieval, agents, and the cross-platform client releases.',
+      date: 'May 2026 to Aug 2026',
+      detail: 'One of two engineers owning mobile product work, backend services, retrieval, evaluation, releases, and customer lifecycle automation.',
+    },
+    {
+      kind: 'Leadership',
+      title: 'Open-source contributor',
+      org: 'Inspect Robots / Robocurve',
+      date: 'Aug 2026 to Present',
+      detail: 'Merged a public operator-verdict API with regression coverage and proposed a backward-compatible benchmark metrics layer.',
+      href: 'https://github.com/robocurve/inspect-robots/pull/415',
     },
     {
       kind: 'Hackathon',
@@ -974,7 +1141,7 @@ export const portfolio = {
       date: '2026-06-14',
       readingTime: '7 min',
       tags: ['Agents', 'Evaluation'],
-      href: '#', // TODO: link to the real post
+      href: '/projects/peptide-ai-rag',
     },
     {
       title: 'A privacy-safe semantic cache that cut latency 70%',
@@ -983,7 +1150,7 @@ export const portfolio = {
       date: '2026-05-02',
       readingTime: '9 min',
       tags: ['RAG', 'Performance'],
-      href: '#',
+      href: '/projects/peptide-ai-rag',
     },
     {
       title: 'Hybrid retrieval beat my embeddings',
@@ -992,7 +1159,7 @@ export const portfolio = {
       date: '2026-03-21',
       readingTime: '6 min',
       tags: ['RAG', 'Search'],
-      href: '#',
+      href: '/projects/legallease',
     },
   ] as Post[],
 

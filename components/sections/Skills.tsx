@@ -6,20 +6,6 @@ import { portfolio } from '@/content/portfolio';
 import { Section } from '../ui/Section';
 import { cx } from '@/lib/utils';
 
-function Bar({ level, delay }: { level: number; delay: number }) {
-  return (
-    <div className="h-1 w-full overflow-hidden rounded-full bg-line/10" role="presentation">
-      <motion.div
-        className="h-full rounded-full bg-gradient-to-r from-accent to-accent2"
-        initial={{ width: 0 }}
-        whileInView={{ width: `${level}%` }}
-        viewport={{ once: true, margin: '-10% 0px' }}
-        transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
-      />
-    </div>
-  );
-}
-
 export function SkillsSection() {
   const groups = portfolio.skills;
   const [active, setActive] = useState(groups[1].category); // default to the AI group
@@ -33,7 +19,7 @@ export function SkillsSection() {
           Depth where it counts, <span className="grad-text">and breadth where it helps.</span>
         </>
       }
-      lede="Grouped by discipline. The bars reflect how much production work I have behind each item, not how much I like it."
+      lede="Grouped by discipline so you can scan the tools I have used across production work, internships, and public projects."
     >
       {/* Category selector */}
       <div className="mask-fade-x -mx-1 flex gap-1.5 overflow-x-auto px-1 pb-2">
@@ -75,19 +61,11 @@ export function SkillsSection() {
             >
               <p className="eyebrow">{g.category}</p>
               <p className="mt-2 text-[15px] text-muted">{g.blurb}</p>
-              <ul className="mt-6 space-y-4">
-                {g.skills.map((s, i) => (
-                  <li key={s.name}>
-                    <div className="flex items-baseline justify-between gap-3">
-                      <span className="text-sm">
-                        {s.name}
-                        {s.note ? <span className="ml-2 font-mono text-[10px] text-faint">{s.note}</span> : null}
-                      </span>
-                      <span className="font-mono text-[11px] text-faint">{s.level}</span>
-                    </div>
-                    <div className="mt-2">
-                      <Bar level={s.level} delay={i * 0.05} />
-                    </div>
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {g.skills.map((s) => (
+                  <li key={s.name} className="rounded-xl border border-line/10 bg-line/[0.04] px-3 py-2 text-sm text-fg">
+                    {s.name}
+                    {s.note ? <span className="ml-2 font-mono text-[10px] text-faint">{s.note}</span> : null}
                   </li>
                 ))}
               </ul>
